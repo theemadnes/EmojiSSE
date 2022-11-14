@@ -1,5 +1,4 @@
-# EmojiStream
-HTTP/2 (h2c) streaming server as yet another Hello World for Cloud Run
+# EmojiSSE
 
-leans heavily on https://github.com/thrawn01/h2c-golang-example
+Cloud Run service that emits emojis via [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) and a bare-bones test client page.
 

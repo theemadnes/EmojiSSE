@@ -60,6 +60,7 @@ function sendEventsToAll(newMessage) {
   }
   
 async function addMessage(request, respsonse, next) {
+    console.log("Processed new published message...");
     const newMessage = request.body;
     messages.push(newMessage);
     respsonse.json(newMessage)
@@ -76,6 +77,7 @@ function randomEmoji() {
 
 // add new timed function that will run every ~10 seconds with updates
 function addTimedMessage() {
+    console.log("Processed new timed message...");
     const newMessage = {"update": randomEmoji()}
     messages.push(newMessage);
     return sendEventsToAll(newMessage);

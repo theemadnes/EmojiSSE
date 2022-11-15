@@ -15,10 +15,10 @@ app.get('/status', (request, response) => response.json({clients: clients.length
 const PORT = (process.env.PORT || 8080); // default to 8080
 
 let clients = [];
-let facts = [];
+let messages = [];
 
 app.listen(PORT, () => {
-  console.log(`Facts Events service listening at http://localhost:${PORT}`)
+  console.log(`Update Events service listening at http://localhost:${PORT}`)
 })
 
 function eventsHandler(request, response, next) {
@@ -29,7 +29,7 @@ function eventsHandler(request, response, next) {
     };
     response.writeHead(200, headers);
   
-    const data = `data: ${JSON.stringify(facts)}\n\n`;
+    const data = `data: ${JSON.stringify(messages)}\n\n`;
   
     response.write(data);
   
@@ -50,15 +50,15 @@ function eventsHandler(request, response, next) {
   
 app.get('/events', eventsHandler);
 
-function sendEventsToAll(newFact) {
-    clients.forEach(client => client.response.write(`data: ${JSON.stringify(newFact)}\n\n`))
+function sendEventsToAll(newMessage) {
+    clients.forEach(client => client.response.write(`data: ${JSON.stringify(newMessage)}\n\n`))
   }
   
-  async function addFact(request, respsonse, next) {
-    const newFact = request.body;
-    facts.push(newFact);
-    respsonse.json(newFact)
-    return sendEventsToAll(newFact);
+async function addMessage(request, respsonse, next) {
+    const newMessage = request.body;
+    messages.push(newMessage);
+    respsonse.json(newMessage)
+    return sendEventsToAll(newMessage);
   }
   
-app.post('/fact', addFact);
+app.post('/messages', addMessage);

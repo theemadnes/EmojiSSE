@@ -1,10 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>This is the title of the webpage!</title>
+    <title>EventSource Demo with EmojiStream</title>
     <script>
         // https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
         const evtSource = new EventSource("https://emojisse-4uotx33u2a-uc.a.run.app/events", { withCredentials: false } );
+
+        // select the eventTarget element
+        //let eventTarget = document.getElementById('eventTarget');
+
         evtSource.onmessage = (event) => {
         //const newElement = document.createElement("li");
         //const eventList = document.getElementById("list");
@@ -12,10 +16,17 @@
         //newElement.textContent = `message: ${event.data}`;
         //eventList.appendChild(newElement);
         console.log(event);
+        document.getElementById('eventTarget').innerText = event.data;
         }
+
+        
+        evtSource.onerror = (err) => {
+        console.error("EventSource failed:", err);
+        };
     </script>
   </head>
   <body>
     <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
+    <p id="eventTarget"> </p>
   </body>
 </html>

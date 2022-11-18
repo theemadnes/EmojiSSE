@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get('/status', (request, response) => response.json({clients: clients.length}));
 
 const PORT = (process.env.PORT || 8080); // default to 8080
+const REFRESHRATE = (process.env.REFRESHRATE || 2000); // in milliseconds; default to 2 seconds
 
 let clients = [];
 let messages = [];
@@ -75,7 +76,7 @@ function randomEmoji() {
     return emoji
 }
 
-// add new timed function that will run every ~10 seconds with updates
+// add new timed function that will run every few seconds with updates
 function addTimedMessage() {
     console.log("Processed new timed message...");
     const newMessage = {"update": randomEmoji()}
@@ -84,6 +85,6 @@ function addTimedMessage() {
 }
 
 // schedule the timed messages
-setInterval(addTimedMessage, 10000);
+setInterval(addTimedMessage, REFRESHRATE);
   
 app.post('/messages', addMessage);

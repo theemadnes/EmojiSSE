@@ -57,7 +57,7 @@ app.get('/events', eventsHandler);
 
 function sendEventsToAll(newMessage) {
     clients.forEach(client => client.response.write(`data: ${JSON.stringify(newMessage)}\n\n`));
-    messages.pop();
+    messages.pop(); // clear out old messages - doing this so reconnection doesn't give you a huge array of updates
     // console.log(randomEmoji()) // debug testing
   }
   

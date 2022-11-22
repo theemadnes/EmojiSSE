@@ -56,7 +56,8 @@ function eventsHandler(request, response, next) {
 app.get('/events', eventsHandler);
 
 function sendEventsToAll(newMessage) {
-    clients.forEach(client => client.response.write(`data: ${JSON.stringify(newMessage)}\n\n`))
+    clients.forEach(client => client.response.write(`data: ${JSON.stringify(newMessage)}\n\n`));
+    messages.pop();
     // console.log(randomEmoji()) // debug testing
   }
   
